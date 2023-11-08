@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Name Card</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+
+            .name-card {
+                background-color: yellow;
+                border: 5px solid black;
+                width: fit-content;
+                min-width: 400px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                transition: border-width 0.3s ease-in-out;
+            }
+
+            .name-card:hover {
+                border-width: 10px;
+            }
+
+            .first-name span:first-child {
+                color: red;
+                font-size: 100px;
+                font-weight: bold;
+            }
+
+            .first-name span:nth-child(n+2) {
+                color: orange;
+                font-size: 50px;
+            }
+
+            .middle-last-name {
+                font-weight: bold;
+                font-size: 30px;
+                text-align: right;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="name-card">
+            <div class="first-name">
+                <span>M</span>
+                <span>eiqing</span>
+            </div>          
+            <div class="middle-last-name">
+                Shi
+            </div>
+        </div>
+
+    </body>
+
+</html>

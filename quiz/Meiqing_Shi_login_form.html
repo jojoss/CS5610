@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Meiqing_Shi_Login Form</title>
+
+        <style>
+            form {
+                width: 200px;
+                border: 2px solid #2c3e50;
+                padding: 40px 60px 30px 60px;
+            }
+
+            label {
+                color: #34495e;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            input[type="text"], input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #bdc3c7;
+                color: #34495e;
+                font-size: 14px;
+            }
+
+            /* Placeholder text styling */
+            input::placeholder {
+                color: #95a5a6;
+            }
+
+            input[type="submit"] {
+                width: 100% / 3;
+                padding: 10px;
+                border: none;
+                background: linear-gradient(#27ae60, #2c3e50);
+                color: white;
+                cursor: pointer;
+            }
+
+            /* Hover effect for the button */
+            input[type="submit"]:hover {
+                cursor: pointer;
+            }
+
+            label {
+                font-family: Arial, sans-serif;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <form action="#" method="post">
+            <label for="username">Name</label>
+            <input type="text" id="username" name="username" placeholder="Your Name">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Your Email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Your Password">
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+
+</html>
