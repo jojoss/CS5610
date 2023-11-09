@@ -1,15 +1,8 @@
-// App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import WelcomePage from './pages/WelcomePage'; // 导入欢迎页面组件
-import RulesPage from './pages/RulesPage'; // 导入规则页面组件
-
-import GameSelect from './pages/GameSelect';
-import GameNormal from './pages/GameNormal';
-import GameHard from './pages/GameHard';
-
-import GamePage from './pages/GamePage';
-
+import WelcomePage from './welcome/WelcomePage';
+import RulesPage from './rules/RulesPage';
+import GamePage from './game/GamePage'; 
 
 import './App.css';
 
@@ -19,9 +12,6 @@ function App() {
       <Route path="/" element={<WelcomePage />} />  
       <Route path="/rules" element={<RulesPage />} /> 
 
-      {/* <Route path="/game" element={<GameSelect />} />
-      <Route path="/game/normal" element={<GameNormal />} />
-      <Route path="/game/hard" element={<GameHard />} /> */}
       
       <Route path="/game" element={<GamePage />} />
       <Route path="/game/normal" element={<GamePage difficulty="normal" />} />
