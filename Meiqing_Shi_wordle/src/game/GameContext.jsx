@@ -1,31 +1,60 @@
 import React, { createContext, useState, useContext } from 'react';
 
-const GameContext = createContext();
+const GameContext = createContext({ 
+  difficulty: 'normal', 
+  changeDifficulty: () => {},
+
+  currentGuess: '',
+  guesses: [],
+  addLetter: () => {},
+  delLetter: () => {},
+  submitGuess: () => {},
+});
 
 export const useGame = () => useContext(GameContext);
 
 export const GameProvider = ({ children }) => {
-  const [inputWord, setInputWord] = useState('');
+  const [difficulty, setDifficulty] = useState('normal');
+  const [currentGuess, setCurrentGuess] = useState('');
+  const [guesses, setGuess] = useState([]);
+
+  const changeDifficulty = (newDifficulty) => {
+    setDifficulty(newDifficulty);
+    setCurrentGuess('');
+    setGuess([]);
+  };
+
+  const maxGuessLength = difficulty === 'hard' ? 7 : 6;
 
   const addLetter = (letter) => {
-    setInputWord((prev) => prev + letter);
+    if (currentGuess.length < maxGuessLength) {
+      setCurrentGuess(currentGuess + letter);
+    }
   };
 
-  const removeLetter = () => {
-    setInputWord((prev) => prev.slice(0, -1));
+  const delLetter = () => {
+    if (currentGuess.length > 0) {
+      setCurrentGuess(currentGuess.slice(0, -1));
+    }
   };
 
-  const submitWord = () => {
-    // Here you will handle the submission logic
-    
-    console.log(inputWord);
-    
-    // Reset input word after submission
-    setInputWord('');
+  const submitGuess = () => {
+    if (currentGuess.length === maxGuessLength) {
+      setGuess([...guesses, currentGuess]);
+      setCurrentGuess('');
+    }
   };
 
   return (
-    <GameContext.Provider value={{ inputWord, addLetter, removeLetter, submitWord }}>
+    <GameContext.Provider value={{ 
+      difficulty, 
+      changeDifficulty,
+      currentGuess,
+      guesses,
+      addLetter,
+      delLetter,
+      submitGuess
+    }}>
       {children}
     </GameContext.Provider>
   );

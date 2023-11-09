@@ -16,7 +16,6 @@ const Keyboard = () => {
       </div>
       <div className="keyboard-row">
         {keysRow3.map((letter) => <KeyCell key={letter} letter={letter} />)}
-        {/* 以下是我们添加的额外两个特殊按键 */}
         <KeyCell key="ENTER" letter="ENTER" />
         <KeyCell key="DELETE" letter="DELETE" />
       </div>
@@ -25,4 +24,3 @@ const Keyboard = () => {
 };
 
 export default Keyboard;
-
