@@ -5,8 +5,8 @@ const WelcomePage = () => {
     <div className="welcome-container">
       <h1>🟨 ⬜️ 🟩</h1>
       <div>
-        <a href="/game">Start Game</a>
-        <a href="/rules">How to Play</a>
+        <a href="/game">Start</a>
+        <a href="/rules">Rules</a>
       </div>
     </div>
   );

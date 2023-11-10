@@ -39,7 +39,9 @@ export const GameProvider = ({ children }) => {
   };
 
   const submitGuess = () => {
-    if (currentGuess.length === maxGuessLength) {
+    if (currentGuess.length === maxGuessLength) { 
+
+      // TODO: check validity
       setGuess([...guesses, currentGuess]);
       setCurrentGuess('');
     }

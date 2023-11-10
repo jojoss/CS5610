@@ -1,8 +1,8 @@
 import React from 'react';
 
-const KeyCell = ({ letter }) => {
+const KeyCell = ({ letter, onKeyClick }) => {
   return (
-    <button>
+    <button onClick={() => onKeyClick(letter)}>
       {letter}
     </button>
   );

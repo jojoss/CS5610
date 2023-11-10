@@ -3,7 +3,7 @@ import React from 'react';
 const Cell = ({ letter }) => {
   return (
     <div className="cell">
-      {letter || '.'}
+      {letter}
     </div>
   );
 };
