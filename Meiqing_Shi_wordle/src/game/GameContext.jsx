@@ -45,6 +45,7 @@ export const GameProvider = ({ children }) => {
       setGuess([...guesses, currentGuess]);
       setCurrentGuess('');
     }
+    console.log("Enter was pressed, currentGuess:", currentGuess);
   };
 
   return (
