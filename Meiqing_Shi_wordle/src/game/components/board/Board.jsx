@@ -11,12 +11,6 @@ const Board = ({ difficulty }) => {
 
   const currentRow = currentGuess.split('').concat(Array(numCols - currentGuess.length).fill(''));
 
-  // Here, we create the boardState with the current guess and fill the rest with empty strings
-  // const boardState = [
-  //   currentRow,
-  //   ...Array(numRows - 1).fill().map(() => Array(numCols).fill(''))
-  // ];
-
   const boardState = guesses.map(g => g.split(''));
   if (guesses.length < numRows) {
     boardState.push(Array.from({ length: numCols }, (_, i) => currentGuess[i] || ''));

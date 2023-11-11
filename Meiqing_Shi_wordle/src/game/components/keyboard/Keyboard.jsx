@@ -18,7 +18,6 @@ const Keyboard = () => {
       </div>
       <div className="keyboard-row">
         {keysRow3.map((letter) => <KeyCell key={letter} letter={letter} onKeyClick={addLetter} />)}
-        {/* <KeyCell key="ENTER" letter="ENTER" /> */}
         <KeyCell key="ENTER" letter="ENTER" onEnter={submitGuess} />
         <KeyCell key="DELETE" letter="DELETE" onDelete={delLetter} />
       </div>

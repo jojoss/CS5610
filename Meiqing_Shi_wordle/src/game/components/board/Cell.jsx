@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Cell = ({ letter }) => {
+const Cell = ({ letter, color }) => {
+  const style = {
+    backgroundColor: color,
+  };
+
   return (
-    <div className="cell">
-      {letter}
+    <div className="cell" style={style}>
+      {letter.toUpperCase()}
     </div>
   );
 };

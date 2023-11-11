@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-const GameContext = createContext({ 
+const GameContext = createContext({
   difficulty: 'normal', 
   changeDifficulty: () => {},
 
@@ -12,7 +12,7 @@ const GameContext = createContext({
 });
 
 const loadWordList = async (difficulty) => {
-  const url = difficulty === 'hard' ? '/hard.json' : '/normal.json'; // 修正URL逻辑
+  const url = difficulty === 'hard' ? '/hard.json' : '/normal.json';
   try {
     const response = await fetch(url);
     const words = await response.json();
@@ -32,6 +32,9 @@ export const GameProvider = ({ children }) => {
   const [validWords, setValidWords] = useState([]);
   const [answerWord, setAnswerWord] = useState('');
   const [guessesWithClues, setGuessesWithClues] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [guessesLeft, setGuessesLeft] = useState(difficulty === 'hard' ? 5 : 6);
+
 
   const changeDifficulty = (newDifficulty) => {
     setDifficulty(newDifficulty);
@@ -77,11 +80,15 @@ export const GameProvider = ({ children }) => {
   };
 
   const submitGuess = () => {
+    if (gameOver) {
+      console.log('Game is over.');
+      return; // 如果游戏结束，阻止进一步猜测
+    }
+
     if (currentGuess.length !== maxGuessLength) {
       console.log('Word length is invalid.');
       return;
     }
-  
 
     if (!validWords.includes(currentGuess.toLowerCase())) {
       console.log('Word is invalid.');
@@ -90,11 +97,17 @@ export const GameProvider = ({ children }) => {
 
     if (currentGuess.toLowerCase() === answerWord) {
       console.log('Congratulations!');
+      setGameOver(true);
+      return;
     } else {
-      const clues = checkGuess(currentGuess, answerWord);
-      console.log(clues);
+      setGuessesLeft(guessesLeft - 1);
     }
-  
+
+    if (guessesLeft <= 1) {
+      setGameOver(true);
+      console.log('Game over.');
+      return;
+    }
   
     setGuess([...guesses, currentGuess]);
     setCurrentGuess('');
@@ -107,10 +120,8 @@ export const GameProvider = ({ children }) => {
   const checkGuess = (guess, answer) => {
     const result = [];
   
-    // 使用一个对象来跟踪答案单词中的字母及其数量
     const letterCount = {};
   
-    // 首先记录答案中每个字母的数量
     for (let letter of answer) {
       letterCount[letter] = (letterCount[letter] || 0) + 1;
     }
@@ -132,7 +143,6 @@ export const GameProvider = ({ children }) => {
     return result;
   };
   
-
   return (
     <GameContext.Provider value={{ 
       difficulty, 
