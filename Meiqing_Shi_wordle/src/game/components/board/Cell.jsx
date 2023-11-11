@@ -2,7 +2,7 @@ import React from 'react';
 
 const Cell = ({ letter, status }) => {
   
-  console.log(`Cell - Letter: ${letter}, Status: ${status}`); // 添加日志输出
+  // console.log(`Cell - Letter: ${letter}, Status: ${status}`); // 添加日志输出
 
   const statusToColor = {
     correct: 'green', // 如果字母位置正确

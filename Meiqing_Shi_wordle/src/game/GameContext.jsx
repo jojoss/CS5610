@@ -55,6 +55,8 @@ export const GameProvider = ({ children }) => {
     }
   }, [validWords]);
 
+
+
   useEffect(() => {
     // 一旦guesses更新，更新带有线索的猜测
     const newGuessesWithClues = guesses.map((guess) => {
@@ -115,7 +117,7 @@ export const GameProvider = ({ children }) => {
 
       const clues = checkGuess(currentGuess.toLowerCase(), answerWord);
       clues.forEach(clue => {
-        // console.log(`${clue.letter}: ${clue.color}`);
+        console.log(`${clue.letter}: ${clue.color}`);
       });
       
     }
@@ -134,38 +136,44 @@ export const GameProvider = ({ children }) => {
   };
 
 /////////////////////////////////////////////
-  const checkGuess = (guess, answer) => {
-    const result = [];
-    const answerLetters = answer.split('');
-    const guessLetters = guess.split('');
+  const checkGuess = (guess, answerWord) => {
+    const result = new Array(guess.length).fill(null);    const answerLetters = answerWord.split('');
+    const guessLetters = guess.toLowerCase().split('');
   
     // 创建一个记录答案单词中每个字母出现次数的对象
     const letterCount = answerLetters.reduce((acc, letter) => {
       acc[letter] = (acc[letter] || 0) + 1;
       return acc;
     }, {});
-  
+    console.log(answerLetters);
     // 第一遍检查，标记位置正确的字母
     guessLetters.forEach((letter, i) => {
+      console.log(i, answerLetters[i]);
+
       if (letter === answerLetters[i]) {
-        result.push({ letter, status: 'correct' });
+        result[i] = { letter, status: 'correct' };
+
+        console.log("1st check", i, letter, 'green');
         letterCount[letter]--;
       }
     });
   
     // 第二遍检查，标记位置错误但存在于答案中的字母
     guessLetters.forEach((letter, i) => {
-      if (letter !== answerLetters[i]) {
-        if (answer.includes(letter) && letterCount[letter] > 0) {
-          result.push({ letter, status: 'present' });
-          letterCount[letter]--;
-        } else {
-          result.push({ letter, status: 'absent' });
-        }
+
+      if (result[i] !== null) return; // 跳过已经标记为正确的字母
+  
+      if (letterCount[letter] > 0) {
+        result[i] = { letter, status: 'present' };
+        console.log("2nd check", i, letter, 'yellow');
+        letterCount[letter]--;
+      } else {
+        result[i] = { letter, status: 'absent' };
+        console.log("3rd check", i, letter, 'grey');
       }
     });
-  
-    return result;
+    
+    return result.filter(clue => clue !== null); // 过滤掉null值，只返回有状态的对象
   };
 
   return (
