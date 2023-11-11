@@ -93,7 +93,9 @@ export const GameProvider = ({ children }) => {
     if (!validWords.includes(currentGuess.toLowerCase())) {
       console.log('Word is invalid.');
       return;
-    }  
+    }
+
+
 
     if (currentGuess.toLowerCase() === answerWord) {
       console.log('Congratulations!');
@@ -101,6 +103,12 @@ export const GameProvider = ({ children }) => {
       return;
     } else {
       setGuessesLeft(guessesLeft - 1);
+
+      const clues = checkGuess(currentGuess.toLowerCase(), answerWord);
+      clues.forEach(clue => {
+        console.log(`${clue.letter}: ${clue.color}`);
+      });
+      
     }
 
     if (guessesLeft <= 1) {
@@ -116,33 +124,41 @@ export const GameProvider = ({ children }) => {
     console.log("The answer word is:", answerWord);
   };
 
-
+/////////////////////////////////////////////
   const checkGuess = (guess, answer) => {
     const result = [];
+    const answerLetters = answer.split('');
+    const guessLetters = guess.split('');
   
-    const letterCount = {};
+    // 创建一个记录答案单词中每个字母出现次数的对象
+    const letterCount = answerLetters.reduce((acc, letter) => {
+      acc[letter] = (acc[letter] || 0) + 1;
+      return acc;
+    }, {});
   
-    for (let letter of answer) {
-      letterCount[letter] = (letterCount[letter] || 0) + 1;
-    }
-  
-    // 检查每个字母是否在正确的位置
-    for (let i = 0; i < guess.length; i++) {
-      const letter = guess[i];
-      if (answer[i] === letter) {
+    // 第一遍检查，标记位置正确的字母
+    guessLetters.forEach((letter, i) => {
+      if (letter === answerLetters[i]) {
         result.push({ letter, color: 'green' });
         letterCount[letter]--;
-      } else if (answer.includes(letter) && letterCount[letter] > 0) {
-        result.push({ letter, color: 'yellow' });
-        letterCount[letter]--;
-      } else {
-        result.push({ letter, color: 'grey' });
       }
-    }
+    });
+  
+    // 第二遍检查，标记位置错误但存在于答案中的字母
+    guessLetters.forEach((letter, i) => {
+      if (letter !== answerLetters[i]) {
+        if (answer.includes(letter) && letterCount[letter] > 0) {
+          result.push({ letter, color: 'yellow' });
+          letterCount[letter]--;
+        } else {
+          result.push({ letter, color: 'grey' });
+        }
+      }
+    });
   
     return result;
   };
-  
+
   return (
     <GameContext.Provider value={{ 
       difficulty, 
