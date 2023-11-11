@@ -1,0 +1,36 @@
+/* cell.css */
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* 根据您的布局需要调整宽度和高度 */
+    height: 50px;
+    margin: 4px;
+    border: 2px solid #d3d6da;
+    border-radius: 4px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  /* 状态相关的背景颜色 */
+  .cell.correct {
+    background-color: #538d4e; /* 正确的字母的背景颜色 */
+    color: white;
+    border-color: #538d4e;
+  }
+  
+  .cell.present {
+    background-color: #b59f3b; /* 存在但位置不正确的字母的背景颜色 */
+    color: white;
+    border-color: #b59f3b;
+  }
+  
+  .cell.absent {
+    background-color: #3a3a3c; /* 不存在的字母的背景颜色 */
+    color: white;
+    border-color: #3a3a3c;
+  }
+  
+  /* 如果有其他状态或动画，也可以在这里定义 */
+  

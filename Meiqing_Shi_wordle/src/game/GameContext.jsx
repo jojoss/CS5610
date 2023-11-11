@@ -59,21 +59,32 @@ export const GameProvider = ({ children }) => {
     // 一旦guesses更新，更新带有线索的猜测
     const newGuessesWithClues = guesses.map((guess) => {
       return guess === answerWord
-        ? { guess, clues: Array(guess.length).fill({ letter: guess, color: 'green' }) }
+        ? { guess, clues: Array(guess.length).fill({ letter: guess, status: 'correct' }) }
         : { guess, clues: checkGuess(guess, answerWord) };
     });
     setGuessesWithClues(newGuessesWithClues);
+    console.log(newGuessesWithClues);
   }, [guesses, answerWord]);
 
   
 
   const addLetter = (letter) => {
+    if (gameOver) {
+      console.log('Game is over.');
+      return;
+    }
+
     if (currentGuess.length < maxGuessLength) {
       setCurrentGuess(currentGuess + letter);
     }
   };
 
   const delLetter = () => {
+    if (gameOver) {
+      console.log('Game is over.');
+      return;
+    }
+
     if (currentGuess.length > 0) {
       setCurrentGuess(currentGuess.slice(0, -1));
     }
@@ -95,8 +106,6 @@ export const GameProvider = ({ children }) => {
       return;
     }
 
-
-
     if (currentGuess.toLowerCase() === answerWord) {
       console.log('Congratulations!');
       setGameOver(true);
@@ -106,7 +115,7 @@ export const GameProvider = ({ children }) => {
 
       const clues = checkGuess(currentGuess.toLowerCase(), answerWord);
       clues.forEach(clue => {
-        console.log(`${clue.letter}: ${clue.color}`);
+        // console.log(`${clue.letter}: ${clue.color}`);
       });
       
     }
@@ -139,7 +148,7 @@ export const GameProvider = ({ children }) => {
     // 第一遍检查，标记位置正确的字母
     guessLetters.forEach((letter, i) => {
       if (letter === answerLetters[i]) {
-        result.push({ letter, color: 'green' });
+        result.push({ letter, status: 'correct' });
         letterCount[letter]--;
       }
     });
@@ -148,10 +157,10 @@ export const GameProvider = ({ children }) => {
     guessLetters.forEach((letter, i) => {
       if (letter !== answerLetters[i]) {
         if (answer.includes(letter) && letterCount[letter] > 0) {
-          result.push({ letter, color: 'yellow' });
+          result.push({ letter, status: 'present' });
           letterCount[letter]--;
         } else {
-          result.push({ letter, color: 'grey' });
+          result.push({ letter, status: 'absent' });
         }
       }
     });
