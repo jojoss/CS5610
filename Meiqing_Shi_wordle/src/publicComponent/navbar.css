@@ -1,0 +1,24 @@
+/* 导航栏样式 */
+.navbar {
+    position: absolute; /* 绝对定位 */
+    top: 0;
+    left: 0;
+    padding: 10px;
+    display: flex;
+    gap: 10px; /* 按钮之间的距离 */
+  }
+  
+  /* 导航链接样式 */
+  .navbar a {
+    background-color: #333; /* 给链接添加背景色 */
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px; /* 可选的圆角 */
+  }
+  
+  /* 链接悬停效果 */
+  .navbar a:hover {
+    background-color: #555; /* 深色背景 */
+  }
+  

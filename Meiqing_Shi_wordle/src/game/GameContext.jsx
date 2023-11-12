@@ -136,6 +136,7 @@ export const GameProvider = ({ children }) => {
   
     setGuess([...guesses, currentGuess]);
     setCurrentGuess('');
+    setSubmitStatus('');
 
     console.log("Enter was pressed, currentGuess:", currentGuess);
     console.log("The answer word is:", answerWord);

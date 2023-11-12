@@ -21,13 +21,14 @@ const GamePage = () => {
   return (
     <div>
       <Navbar showGameLink={false} showRulesLink={true} />
-      <Prompt /> {/* 添加Prompt组件 */}
-      <ResetGame /> {/* 添加重置游戏的按钮 */}
+      <Prompt />
+      <ResetGame />
 
       <div className="game-page">
-        <h1>Wordle Game</h1>
-        <button onClick={() => selectDifficulty('normal')}>Normal</button>
-        <button onClick={() => selectDifficulty('hard')}>Hard</button>
+      <div className="difficulty-container">
+          <button onClick={() => selectDifficulty('normal')} className="difficulty-button">Normal</button>
+          <button onClick={() => selectDifficulty('hard')} className="difficulty-button">Hard</button>
+        </div>
 
         <Board difficulty={difficulty} />
         <Keyboard />
