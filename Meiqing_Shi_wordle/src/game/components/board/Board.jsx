@@ -61,18 +61,6 @@ const Board = ({ difficulty }) => {
       {rows}
     </div>
   );
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 export default Board;

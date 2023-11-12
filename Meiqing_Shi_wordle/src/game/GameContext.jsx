@@ -34,6 +34,8 @@ export const GameProvider = ({ children }) => {
   const [guessesWithClues, setGuessesWithClues] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [guessesLeft, setGuessesLeft] = useState(difficulty === 'hard' ? 5 : 6);
+  const [submitStatus, setSubmitStatus] = useState('');
+
 
 
   const changeDifficulty = (newDifficulty) => {
@@ -99,16 +101,20 @@ export const GameProvider = ({ children }) => {
     }
 
     if (currentGuess.length !== maxGuessLength) {
+      setSubmitStatus('short');
       console.log('Word length is invalid.');
       return;
     }
 
     if (!validWords.includes(currentGuess.toLowerCase())) {
+      setSubmitStatus('invalid');
       console.log('Word is invalid.');
+
       return;
     }
 
     if (currentGuess.toLowerCase() === answerWord) {
+      setSubmitStatus('win');
       console.log('Congratulations!');
       setGameOver(true);
       return;
@@ -176,6 +182,27 @@ export const GameProvider = ({ children }) => {
     return result.filter(clue => clue !== null); // 过滤掉null值，只返回有状态的对象
   };
 
+
+  const resetGame = () => {
+    // 重置状态到初始值
+    setCurrentGuess('');
+    setGuess([]);
+    setValidWords([]);
+    setAnswerWord('');
+    setGuessesWithClues([]);
+    setGameOver(false);
+    setGuessesLeft(difficulty === 'hard' ? 5 : 6);
+    setSubmitStatus('');
+  
+    // 重新加载单词列表
+    loadWordList(difficulty).then(words => {
+      setValidWords(words);
+      const randomIndex = Math.floor(Math.random() * words.length);
+      setAnswerWord(words[randomIndex]);
+    });
+  };
+  
+
   return (
     <GameContext.Provider value={{ 
       difficulty, 
@@ -186,7 +213,9 @@ export const GameProvider = ({ children }) => {
       delLetter,
       submitGuess,
       guessesWithClues,
-      checkGuess
+      checkGuess,
+      submitStatus,
+      resetGame
     }}>
       {children}
     </GameContext.Provider>
